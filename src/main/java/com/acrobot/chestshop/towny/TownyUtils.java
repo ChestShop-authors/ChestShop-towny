@@ -1,6 +1,7 @@
 package com.acrobot.chestshop.towny;
 
 import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.TownBlockOwner;
 import com.palmergames.bukkit.towny.object.TownBlockType;
@@ -49,12 +50,8 @@ public class TownyUtils {
      * @return Is the player the plot owner of this location?
      */
     public static boolean isPlotOwner(Player player, Location location) {
-        try {
-            TownBlockOwner owner = TownyAPI.getInstance().getDataSource().getResident(player.getName());
-            return TownyAPI.getInstance().getTownBlock(location).isOwner(owner);
-        } catch (NotRegisteredException ex) {
-            return false;
-        }
+        TownBlockOwner owner = TownyUniverse.getInstance().getResident(player.getUniqueId());
+		return TownyAPI.getInstance().getTownBlock(location).isOwner(owner);
     }
 
     /**

@@ -1,71 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.acrobot.chestshop.towny</groupId>
-    <artifactId>chestshop-towny</artifactId>
-    <version>1.0.2</version>
-    
-    <properties>
-        <java.version>1.8</java.version>
-        <project.bukkitAPIVersion>1.14</project.bukkitAPIVersion>
-    </properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <repositories>
+  <groupId>com.acrobot.chestshop</groupId>
+  <artifactId>towny</artifactId>
+  <version>1.18</version>
+
+  <name>ChestShop-Towny</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>github-Towny</id>
-            <url>https://maven.pkg.github.com/TownyAdvanced/Towny</url>
-        </repository>
-        <repository>
-            <id>chestshop-repo</id>
-            <url>https://repo.minebench.de/</url>
-        </repository>
+           <id>spigot-repo</id>
+           <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+       </repository>
+       <repository>
+           <id>dre-repo</id>
+           <url>http://erethon.de/repo/</url>
+       </repository>
+       <repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+	<repository>
+    <id>chestshop-repo</id>
+    <url>https://repo.minebench.de/</url>
+</repository>
     </repositories>
+  
 
-    <dependencies>
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.acrobot.chestshop</groupId>
-            <artifactId>chestshop</artifactId>
-            <version>3.10-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.palmergames.bukkit.towny</groupId>
-            <artifactId>towny</artifactId>
-            <version>0.95.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <finalName>chestshop-towny</finalName>
-                </configuration>
-            </plugin>
-        </plugins>
+  <dependencies>
+    <dependency>
+        <groupId>com.acrobot.chestshop</groupId>
+        <artifactId>chestshop</artifactId>
+        <version>3.12</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+       <groupId>org.spigotmc</groupId>
+       <artifactId>spigot</artifactId>
+       <version>1.18-R0.1-SNAPSHOT</version>
+       <scope>provided</scope>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/com.google/gson -->
+	<dependency>
+	    <groupId>com.github.TownyAdvanced</groupId>
+	    <artifactId>towny</artifactId>
+	    <version>0.97.5.0</version>
+	    <scope>provided</scope>
+	</dependency>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+
+  </dependencies>
+
+  <build>
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        
+        <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+            <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <transformers>
+                	<transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                    	<resource>src/main/resources</resource>
+                    	<file>plugin.yml</file>
+                	</transformer>
+                </transformers>
+        </configuration>
+        </execution>
+    </executions>
+    </plugin>
+      </plugins>
+  </build>
 </project>
